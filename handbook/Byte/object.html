@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>对象各种好用的API手写 | 代小明的博客</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/my-blog/headPortrait.jpg">
+    <meta name="description" content="突破">
+    
+    <link rel="preload" href="/my-blog/assets/css/0.styles.9e23ccf1.css" as="style"><link rel="preload" href="/my-blog/assets/js/app.bfa76740.js" as="script"><link rel="preload" href="/my-blog/assets/js/3.fc939f52.js" as="script"><link rel="preload" href="/my-blog/assets/js/1.ea3137ea.js" as="script"><link rel="preload" href="/my-blog/assets/js/14.a4b9e4a2.js" as="script"><link rel="prefetch" href="/my-blog/assets/js/10.ebb43259.js"><link rel="prefetch" href="/my-blog/assets/js/11.53ac1d4e.js"><link rel="prefetch" href="/my-blog/assets/js/12.e1ebdfdf.js"><link rel="prefetch" href="/my-blog/assets/js/13.132413ef.js"><link rel="prefetch" href="/my-blog/assets/js/15.2000bcd8.js"><link rel="prefetch" href="/my-blog/assets/js/16.af82b6b7.js"><link rel="prefetch" href="/my-blog/assets/js/17.ec4c5c8b.js"><link rel="prefetch" href="/my-blog/assets/js/18.52e21900.js"><link rel="prefetch" href="/my-blog/assets/js/19.3a881807.js"><link rel="prefetch" href="/my-blog/assets/js/20.96b1c531.js"><link rel="prefetch" href="/my-blog/assets/js/21.e7be6ed6.js"><link rel="prefetch" href="/my-blog/assets/js/22.8a77bc30.js"><link rel="prefetch" href="/my-blog/assets/js/23.3871ea4a.js"><link rel="prefetch" href="/my-blog/assets/js/24.2d68eae0.js"><link rel="prefetch" href="/my-blog/assets/js/25.c7882494.js"><link rel="prefetch" href="/my-blog/assets/js/26.b7a7dd68.js"><link rel="prefetch" href="/my-blog/assets/js/27.bbdf9ce0.js"><link rel="prefetch" href="/my-blog/assets/js/28.3b55530d.js"><link rel="prefetch" href="/my-blog/assets/js/29.0494b6aa.js"><link rel="prefetch" href="/my-blog/assets/js/30.0f59cd37.js"><link rel="prefetch" href="/my-blog/assets/js/31.af29eea5.js"><link rel="prefetch" href="/my-blog/assets/js/32.f90c5c9d.js"><link rel="prefetch" href="/my-blog/assets/js/33.6c109e59.js"><link rel="prefetch" href="/my-blog/assets/js/34.b330bf73.js"><link rel="prefetch" href="/my-blog/assets/js/4.c2ad9568.js"><link rel="prefetch" href="/my-blog/assets/js/5.c663e483.js"><link rel="prefetch" href="/my-blog/assets/js/6.1f9fc4cd.js"><link rel="prefetch" href="/my-blog/assets/js/7.5c10bbaa.js"><link rel="prefetch" href="/my-blog/assets/js/8.d93c723c.js"><link rel="prefetch" href="/my-blog/assets/js/9.2527f323.js">
+    <link rel="stylesheet" href="/my-blog/assets/css/0.styles.9e23ccf1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>代小明的博客</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>突破</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/my-blog/" class="home-link router-link-active"><img src="/my-blog/headPortrait.jpg" alt="代小明的博客" class="logo"> <span class="site-name">代小明的博客</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><img src="headPortrait.jpg" alt="author-avatar" class="personal-img" data-v-39576ba9> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>24</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>15</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9><li class="social-item" data-v-39576ba9><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-github" style="color:#67cc86;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-juejin" style="color:#e15b64;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-coding" style="color:#e15b64;" data-v-39576ba9></i></li></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>对象各种好用的API手写</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">对象各种好用的API手写</h1> <div data-v-f875f3fc><i class="iconfont reco-account" data-v-f875f3fc><span data-v-f875f3fc>潘小七</span></i> <i class="iconfont reco-date" data-v-f875f3fc><span data-v-f875f3fc>2022/12/7</span></i> <i class="iconfont reco-eye" data-v-f875f3fc><span id="/my-blog/handbook/Byte/object.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-f875f3fc><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="tags iconfont reco-tag" data-v-f875f3fc><span class="tag-item" data-v-f875f3fc>Object</span></i></div></div> <div class="theme-reco-content content__default"><h1 id="_1、前言"><a href="#_1、前言" class="header-anchor">#</a> 1、前言</h1> <p>上期说到，我们介绍了<a href="https://juejin.cn/post/7174043835880701966" target="_blank" rel="noopener noreferrer">数组各种好用的API手写<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>，但除了数组这个数据结构，我们还有一种用的比数组还多的数据结构，那就是对象 <strong>（JS万物皆对象）</strong> 这种数据结构了，那么这期我们就再来介绍几个对象身上的API方法吧。</p> <h1 id="_2-object-entries"><a href="#_2-object-entries" class="header-anchor">#</a> 2. Object.entries()</h1> <p><code>Object.entries()</code>方法返回一个给定对象自身可枚举属性(不是原型上的属性)的键值对数
+组,<code>Object.entries()</code>返回一个<code>数组</code>，其元素是与直接在<code>object</code>上找到的<code>可枚举属性键值对相对应的数组</code>。属性的顺序与通过手动循环对象的属性值所给出的顺序相同。</p> <p>简化版：<code>Object.entries()</code>方法返回一个每个键值对在一个数组里的二维数组，且不会返回原型上的方法。</p> <p>实现：</p> <div class="language- extra-class"><pre class="language-text"><code>Object.prototype.like = 'running'
+const obj = new Object({
+    name: '123',
+    age: 12,
+    sex: '1'
+  })
+Object.prototype.my_entries = function(obj) {
+  const res = []
+  for (let key in obj) {
+    obj.hasOwnProperty(key) &amp;&amp; res.push([key, obj[key]])
+  }
+  return res
+}
+const newObj = Object.my_entries(obj)
+console.log(newObj); // [ [ 'name', '123' ], [ 'age', 12 ], [ 'sex', '1' ] ]
+</code></pre></div><h2 id="_3-object-fromentries"><a href="#_3-object-fromentries" class="header-anchor">#</a> 3. Object.fromEntries()</h2> <p><code>Object.fromEntries()</code>方法是把键值对列表转换为一个对象，与<code>Object.entries()</code>相对。<code>Object.fromEntries()</code> 方法s是把键值对列表转换为一个对象。我们可以使用它将<strong>map或者数组</strong>等其他类型转为对象类型。</p> <p>实现：</p> <div class="language- extra-class"><pre class="language-text"><code>const obj = [ [ 'name', '112' ], [ 'age', 18 ], [ 'sex', '123' ] ]
+const map = new Map(obj)
+Object.prototype.my_fromEntries = function(arr) {
+  const ss = {}
+  for (let [key, value] of arr) {
+    ss[key] = value
+  }
+  return ss
+}
+
+const newObj = Object.my_fromEntries(obj)  // { name: '112', age: 18, sex: '123' }
+const newObj1 = Object.my_fromEntries(map) // { name: '112', age: 18, sex: '123' }
+console.log(newObj); 
+
+console.log(newObj1);
+</code></pre></div><h2 id="_4-object-keys"><a href="#_4-object-keys" class="header-anchor">#</a> 4. Object.keys()</h2> <p><code>Object.keys()</code>方法为遍历对象上的可枚举自身的属性，返回一个表示给定对象的所有可枚举属性的字符串数组。</p> <p>简化版：遍历对象上所有的键，但不包含原型上的键, 并返回一个由键组成的字符串数组。</p> <p>实现：</p> <div class="language- extra-class"><pre class="language-text"><code>Object.prototype.like = 'running'
+const obj = new Object({
+  name: '123',
+  age: 18,
+  sex: '1'
+})
+Object.prototype.my_keys = function (obj) {
+  let res = [];
+  for (let key in obj) {
+  // hasOwnProperty()方法:某个属性是否是自己直接拥有的属性，而不是从原型链上继承的
+    if (obj.hasOwnProperty(key)) {  
+      res.push(key);
+    }
+  }
+  return res
+};
+const keys = Object.my_keys(obj)
+console.log(keys); // [ 'name', 'age', 'sex' ]
+</code></pre></div><h2 id="_5-object-values"><a href="#_5-object-values" class="header-anchor">#</a> 5. Object.values()</h2> <p>我们既然知道了<code>Object.keys()</code>方法的作用，那自然可以得知<code>Object.values()</code>方法就是遍历对象上的可枚举自身的属性的值，同样返回的是一个由所有可枚举属性的值组成的一个数组。</p> <p>实现：</p> <div class="language- extra-class"><pre class="language-text"><code>Object.prototype.like = 'running'
+const obj = new Object({
+  name: '123',
+  age: 18,
+  sex: '1'
+})
+Object.prototype.my_values = function (obj) {
+  let res = [];
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      res.push(obj[key]);
+    }
+  }
+  return res
+};
+const values = Object.values(obj)
+console.log(values); // [ '123', 18, '1' ]
+</code></pre></div><h1 id="_5-object-is"><a href="#_5-object-is" class="header-anchor">#</a> 5. Object.is()</h1> <p><code>Object.is()</code>方法判断两个值是否是相同的值。我们知道在JS中万物皆对象, 所以在使用<code>Object.is()</code>方法时，我们要注意几点：</p> <ul><li>两个值都是 undefined</li> <li>两个值都是 null</li> <li>两个值都是 true 或者都是 false</li> <li>两个值是由相同个数的字符按照相同的顺序组成的字符串</li> <li>两个值指向同一个对象</li> <li>两个值都是数字并且
+<ul><li>都是正零 +0</li> <li>都是负零 -0</li> <li>都是NaN</li> <li>都是除零和 NaN 外的其它同一个数字</li></ul></li></ul> <p>这些情况，<code>Object.is()</code>返回的都是<code>true</code>。所以在我们实现<code>Object.is()</code>方法时，我们需要考虑如果接收的参数不是对象的情况。</p> <p>实现；</p> <div class="language- extra-class"><pre class="language-text"><code>Object.prototype.like = 'running'
+const obj1 = new Object({
+  name: '111',
+  age: 18,
+  sex: '1'
+})
+const obj2 = new Object({
+  name: '1',
+  age: 19,
+  sex: '3'
+})
+const obj3 = obj1
+Object.prototype.my_is = function(x, y) {
+  if (x === y) {
+    return x !== 0 || 1 / x === 1 / y
+  }
+  return x !== x &amp;&amp; y !== y
+}
+const res = Object.my_is(obj1, obj2)
+const res1 = Object.my_is(obj1, obj3)
+const res2 = Object.my_is(NaN, NaN)
+const res3 = Object.my_is(undefined, undefined)
+const res4 = Object.my_is(null, null)
+const res5 = Object.my_is(true, true)
+const res6 = Object.my_is('1', '1')
+const res7 = Object.my_is(+0, +0)
+const res8 = Object.my_is(-0, +0)
+const res9 = Object.my_is(0, 0)
+console.log(res); // false
+console.log(res1); // true
+console.log(res2); // true
+console.log(res3); // true
+console.log(res4); // true
+console.log(res5); // true
+console.log(res6); // true
+console.log(res7); // true
+console.log(res8); // false
+console.log(res9); // false
+</code></pre></div><h1 id="_6-object-assign"><a href="#_6-object-assign" class="header-anchor">#</a> 6. Object.assign()</h1> <p><strong><code>Object.assign()</code> 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。</strong> 简单来说，<code>Object.assign()</code>方法用来复制对象的可枚举属性到目标对象，利用这个特性我们可以实现对象属性的合并。</p> <p><code>Object.assign()</code>方接收多个参数，第一个参数成为目标对象，后面所有的参数都为源对象，它把源对象的可枚举属性复制到目标对象。</p> <p>实现：</p> <div class="language- extra-class"><pre class="language-text"><code>Object.prototype.like = 'running'
+let obj1 = new Object({
+    name: '123',
+    age: 18,
+    sex: '1',
+    a: 111
+})
+let obj2 = new Object({
+    name: '121',
+    age: 19,
+    sex: '2'
+})
+Object.prototype.my_assign = function (...args) {
+    let obj = args[0]
+    for (let i = 0; i &lt; args.length; i++) {
+        for (let key in args[i]) {
+            if (args[i].hasOwnProperty(key)) {
+                obj[key] = args[i][key]
+            }
+        }
+    }
+    return obj
+}
+let obj3 = Object.my_assign(obj1, obj2) 
+console.log(obj3); // { name: '121', age: 19, sex: '2', a: 111 }
+console.log(obj3===obj1); // true
+</code></pre></div><h1 id="结语"><a href="#结语" class="header-anchor">#</a> 结语</h1> <p>当我们想要实现一个方法时，我们首先要考虑的问题就是，它接受几个参数，它实现了什么功能，同时我们不能忽略一些特殊情况的判断。学习阶段，欢迎指教。</p></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2023/2/25 10:08:35</span></div></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/Byte/object.html#_3-object-fromentries" class="sidebar-link reco-side-_3-object-fromentries" data-v-cb1513f6>3. Object.fromEntries()</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/Byte/object.html#_4-object-keys" class="sidebar-link reco-side-_4-object-keys" data-v-cb1513f6>4. Object.keys()</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/Byte/object.html#_5-object-values" class="sidebar-link reco-side-_5-object-values" data-v-cb1513f6>5. Object.values()</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><!----><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="right:68px;bottom:190px;display:none;" data-v-5775ee02>
+      欢迎来到小七的博客
+    </div> <div class="operation" style="right:90px;bottom:40px;display:;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5775ee02></i></div> <canvas id="banniang" width="200" height="270" class="live2d" style="right:90px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div><!----><canvas id="vuepress-canvas-cursor"></canvas><!----><div class="RibbonAnimation"></div><div></div><div class="reco-bgm-panel" data-v-b1d3339e><audio id="bgm" src="http://music.163.com/song/media/outer/url?id=167876.mp3" data-v-b1d3339e></audio> <div class="reco-float-box" style="bottom:200px;z-index:999999;display:none;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><img data-v-b1d3339e></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="reco-bgm-cover" style="background-image:url(undefined);" data-v-b1d3339e><div class="mini-operation" style="display:none;" data-v-b1d3339e><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-b1d3339e></i></div> <div class="falut-message" style="display:none;" data-v-b1d3339e>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-music music" data-v-b1d3339e></i>有何不可</div> <div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-artist" data-v-b1d3339e></i>许嵩</div> <div class="reco-bgm-progress" data-v-b1d3339e><div class="progress-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div> <div class="reco-bgm-operation" data-v-b1d3339e><i class="reco-bgm reco-bgm-last last" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play play" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-next next" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-b1d3339e></i> <div class="volume-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div></div> <div class="reco-bgm-left-box" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><i class="reco-bgm reco-bgm-left" data-v-b1d3339e></i></div></div></div></div></div>
+    <script src="/my-blog/assets/js/app.bfa76740.js" defer></script><script src="/my-blog/assets/js/3.fc939f52.js" defer></script><script src="/my-blog/assets/js/1.ea3137ea.js" defer></script><script src="/my-blog/assets/js/14.a4b9e4a2.js" defer></script>
+  </body>
+</html>

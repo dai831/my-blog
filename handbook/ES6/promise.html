@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ES6——promise对象 | 代小明的博客</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/my-blog/headPortrait.jpg">
+    <meta name="description" content="突破">
+    
+    <link rel="preload" href="/my-blog/assets/css/0.styles.9e23ccf1.css" as="style"><link rel="preload" href="/my-blog/assets/js/app.bfa76740.js" as="script"><link rel="preload" href="/my-blog/assets/js/3.fc939f52.js" as="script"><link rel="preload" href="/my-blog/assets/js/1.ea3137ea.js" as="script"><link rel="preload" href="/my-blog/assets/js/19.3a881807.js" as="script"><link rel="prefetch" href="/my-blog/assets/js/10.ebb43259.js"><link rel="prefetch" href="/my-blog/assets/js/11.53ac1d4e.js"><link rel="prefetch" href="/my-blog/assets/js/12.e1ebdfdf.js"><link rel="prefetch" href="/my-blog/assets/js/13.132413ef.js"><link rel="prefetch" href="/my-blog/assets/js/14.a4b9e4a2.js"><link rel="prefetch" href="/my-blog/assets/js/15.2000bcd8.js"><link rel="prefetch" href="/my-blog/assets/js/16.af82b6b7.js"><link rel="prefetch" href="/my-blog/assets/js/17.ec4c5c8b.js"><link rel="prefetch" href="/my-blog/assets/js/18.52e21900.js"><link rel="prefetch" href="/my-blog/assets/js/20.96b1c531.js"><link rel="prefetch" href="/my-blog/assets/js/21.e7be6ed6.js"><link rel="prefetch" href="/my-blog/assets/js/22.8a77bc30.js"><link rel="prefetch" href="/my-blog/assets/js/23.3871ea4a.js"><link rel="prefetch" href="/my-blog/assets/js/24.2d68eae0.js"><link rel="prefetch" href="/my-blog/assets/js/25.c7882494.js"><link rel="prefetch" href="/my-blog/assets/js/26.b7a7dd68.js"><link rel="prefetch" href="/my-blog/assets/js/27.bbdf9ce0.js"><link rel="prefetch" href="/my-blog/assets/js/28.3b55530d.js"><link rel="prefetch" href="/my-blog/assets/js/29.0494b6aa.js"><link rel="prefetch" href="/my-blog/assets/js/30.0f59cd37.js"><link rel="prefetch" href="/my-blog/assets/js/31.af29eea5.js"><link rel="prefetch" href="/my-blog/assets/js/32.f90c5c9d.js"><link rel="prefetch" href="/my-blog/assets/js/33.6c109e59.js"><link rel="prefetch" href="/my-blog/assets/js/34.b330bf73.js"><link rel="prefetch" href="/my-blog/assets/js/4.c2ad9568.js"><link rel="prefetch" href="/my-blog/assets/js/5.c663e483.js"><link rel="prefetch" href="/my-blog/assets/js/6.1f9fc4cd.js"><link rel="prefetch" href="/my-blog/assets/js/7.5c10bbaa.js"><link rel="prefetch" href="/my-blog/assets/js/8.d93c723c.js"><link rel="prefetch" href="/my-blog/assets/js/9.2527f323.js">
+    <link rel="stylesheet" href="/my-blog/assets/css/0.styles.9e23ccf1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>代小明的博客</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>突破</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/my-blog/" class="home-link router-link-active"><img src="/my-blog/headPortrait.jpg" alt="代小明的博客" class="logo"> <span class="site-name">代小明的博客</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><img src="headPortrait.jpg" alt="author-avatar" class="personal-img" data-v-39576ba9> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>24</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>15</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9><li class="social-item" data-v-39576ba9><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-github" style="color:#67cc86;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-juejin" style="color:#e15b64;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-coding" style="color:#e15b64;" data-v-39576ba9></i></li></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>ES6——promise对象</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">ES6——promise对象</h1> <div data-v-f875f3fc><i class="iconfont reco-account" data-v-f875f3fc><span data-v-f875f3fc>潘小七</span></i> <i class="iconfont reco-date" data-v-f875f3fc><span data-v-f875f3fc>2022/7/20</span></i> <i class="iconfont reco-eye" data-v-f875f3fc><span id="/my-blog/handbook/ES6/promise.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-f875f3fc><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="tags iconfont reco-tag" data-v-f875f3fc><span class="tag-item" data-v-f875f3fc>ES6</span></i></div></div> <div class="theme-reco-content content__default"><h2 id="promise的含义"><a href="#promise的含义" class="header-anchor">#</a> Promise的含义</h2> <p><code>Promise</code> 是针对于异步编程的一种解决方案，在<code>Pormise</code>没有被提出之前，我们处理异步代码都是用回调函数的方法，但大量的回调函数会引起内存泄露，导致代码的执行速度下降。<code>Promise</code>相比于传统的解决方案——回调函数和事件——更加合理和强大。所以在中ES6 将其写进了语言标准，统一了用法，原生提供了<code>Promise</code>对象。</p> <h2 id="promise的基本用法"><a href="#promise的基本用法" class="header-anchor">#</a> Promise的基本用法</h2> <p><code>Promise</code>函数接收一个函数作为参数，这个函数可以有两个参数，一个是成功函数(<code>resolve</code>)，一个是失败函数(<code>reject</code>)。Promise的.then接收两个回调函数，一个是成功函数的回调，一个是失败函数的回调。它们是两个函数，由 JavaScript 引擎提供，不用自己部署。</p> <div class="language- extra-class"><pre class="language-text"><code>   const myPromise = new Promise(function (resolve, reject) {
+       resolve()
+       reject()
+   });
+   myPromise.then(function (value) { //成功
+       console.log('success');
+   }, function (error) { //失败
+       console.log('file');
+   })
+
+</code></pre></div><p><code>resolve</code>函数的作用是，将<code>Promise</code>对象的状态从“未完成”变为“成功”，在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；<code>reject</code>函数的作用是，将<code>Promise</code>对象的状态从“未完成”变为“失败，在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。<code>Promise</code>对象中的状态不会被外界干扰。状态的改变取决于异步的操作结果。成功即执行<code>reslove</code>函数，失败即执行<code>reject</code>。且<code>Promise</code>对象的状态一旦被改变，就不会进行再次改变。</p> <h2 id="promise的方法"><a href="#promise的方法" class="header-anchor">#</a> Promise的方法</h2> <p>1.Promise.prototype.then()</p> <p>then方法的返回结果是<code>新的Promise实例</code>，对象状态由回调函数的执行结果决定。then方法后面还可以再调用另一个then方法，形成链条。采用<code>链式的then</code>，可以指定一组<code>按照次序调用</code>的回调函数。</p> <div class="language- extra-class"><pre class="language-text"><code>function xq() {
+    return new Promise((resolve, reject) =&gt; {
+      setTimeout(() =&gt; {
+        console.log('相亲了！');
+        resolve('ok')
+      }, 2000)
+    })
+  }
+function marry() {
+    return new Promise((resolve, reject) =&gt; {
+      setTimeout(() =&gt; {
+        console.log('结婚了');
+        resolve('好开心')
+      }, 1000)
+    })  
+  }
+function baby() {
+   setTimeout(() =&gt; {
+      console.log('出生了！');
+    }, 500)
+  }
+  xq()
+    .then(marry)
+    .then(baby)
+</code></pre></div><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b8b947f03860427580edbc92c895f727~tplv-k3u1fbpfcp-watermark.image?" alt="微信图片_20220720185056.png"></p> <p>在上面这段异步代码中，当我想让他们按照相亲、结婚、出生的顺序执行的话，我们就要给他们加上<code>promise</code>对象，当我们在调用<code>xq</code>函数时我们在后面加入<code>.then</code>方法返回一个<code>新的promise对象</code>执行<code>marry</code>函数，再在<code>marry</code>函数中加入<code>.then</code>方法再返回一个<code>新的promise对象</code>执行<code>baby</code>函数。让它的执行顺序为相亲、结婚、出生。</p> <p>2.Promise.prototype.catch()</p> <p>catch()用于指定发生错误时的回调函数,在下面这段代码中，我们用<code>a.catch(funtion(error))</code>将上面<code>promise</code>中的失败函数的结果打印出来了。</p> <div class="language- extra-class"><pre class="language-text"><code>function a() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log('aaa');
+      reject('fail');
+    }, 1000)
+  });
+}
+a().catch(function (error) {
+  console.log(error);
+})
+</code></pre></div><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/13a7675670804eb28d74d26bbfbe693d~tplv-k3u1fbpfcp-watermark.image?" alt="微信图片_20220720192052.png"></p> <p>3.Promise.prototype.finally()</p> <p><code>finally()</code>方法用于指定不管 <code>Promise</code> 对象最后状态如何，都会执行的操作。而且<code>finally</code>方法总是会返回原来的值。在下面这段代码中，<code>a</code>函数虽然回调失败，返回了<code>reject</code>，但是<code>c</code>函数还是执行了。</p> <div class="language- extra-class"><pre class="language-text"><code>function a() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log('aaa');
+      reject('fail');
+    }, 1000)
+  });
+}
+function c() {
+  setTimeout(() =&gt; {
+    console.log('ccc');
+  }, 500)
+}
+a().finally(c)
+</code></pre></div><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/58a1bf4a256b487cafa8795bcbb5a11e~tplv-k3u1fbpfcp-watermark.image?" alt="微信图片_20220720193451.png">
+4.Promise.all()</p> <p><code>all()</code>是将多个 <code>Promise</code> 实例，包装成一个新的 <code>Promise</code> 实例。接收一个数组作为参数，数组的每一项都是<code>Promise</code>对象的实例。如果不是，会通过<code>Promise.resolve()</code>将参数转为<code>Promise</code>实例，再进行处理。<code>all()用于将多个 Promise 实例，包装成一个新的 Promise 实例</code>。在下面这段代码中，只有<code>all()</code>所有的<code>promise</code>实例执行完，<code>C</code>函数就会执行。</p> <div class="language- extra-class"><pre class="language-text"><code>function a() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log('aaa');
+      resolve('ok');
+    }, 1000)
+  });
+}
+function b() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log('bbb');
+      resolve('ok');
+    }, 2000)
+  });
+}
+function c() {
+  setTimeout(() =&gt; {
+    console.log('ccc');
+  }, 500)
+}
+ Promise.all([a(), b()]).then(c)
+</code></pre></div><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/565c6f5b04b348ae9d60e794837961cf~tplv-k3u1fbpfcp-watermark.image?" alt="微信图片_20220720200602.png">
+5.Promise.race()</p> <p><code>race()</code>是将多个 <code>Promise</code> 实例，包装成一个新的 <code>Promise</code> 实例。接收一个数组作为参数，数组的每一项都是<code>Promise</code>对象的实例。如果不是，会通过<code>promise.resolve()</code>将参数转为<code>Promise</code>实例，再进行处理。<code>只要参数的Promise实例有一个率先改变状态，则状态改变</code>。在下面这段代码中，只要<code>race()</code>有一个<code>promise</code>实例执行完，<code>C</code>函数就会执行。</p> <div class="language- extra-class"><pre class="language-text"><code>function a() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log('aaa');
+      resolve('ok');
+    }, 1000)
+  });
+}
+function b() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log('bbb');
+      resolve('ok');
+    }, 2000)
+  });
+}
+function c() {
+  setTimeout(() =&gt; {
+    console.log('ccc');
+  }, 500)
+}
+ Promise.race([a(), b()]).then(c)
+</code></pre></div><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/76df3cd210b24591ba85302bd2a400a6~tplv-k3u1fbpfcp-watermark.image?" alt="微信图片_20220720200703.png"></p> <h2 id="promise的应用场景和不足之处"><a href="#promise的应用场景和不足之处" class="header-anchor">#</a> Promise的应用场景和不足之处</h2> <p>Promise的应用场景具体有：</p> <ol><li>Ajax请求</li> <li>文件读取</li> <li>图片加载</li> <li>函数封装</li></ol> <p>上述这几个场景中，基本都涉及成功和失败。我们可以用Promise同时对其成功或失败进行不同的处理。使我们的代码可以处理更多不同的情况。</p> <p>Promise的不足之处具体有：</p> <ol><li>无法取消Promise,一旦新建它就会立即执行，无法中途取消</li> <li>如果不设置回调函数，Promise内部抛出的错误，不会反映到外部</li> <li>当处于pending状态时，无法得知目前进展到哪一个阶段，是刚刚开始还是即将完成</li></ol> <p>Promise虽然解决了回调函数的问题，但是它也存在一些未解决的问题，也许在未来我们可以找到更好的方法去解决它。</p></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2023/2/25 10:08:35</span></div></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/ES6/promise.html#promise的含义" class="sidebar-link reco-side-promise的含义" data-v-cb1513f6>Promise的含义</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/ES6/promise.html#promise的基本用法" class="sidebar-link reco-side-promise的基本用法" data-v-cb1513f6>Promise的基本用法</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/ES6/promise.html#promise的方法" class="sidebar-link reco-side-promise的方法" data-v-cb1513f6>Promise的方法</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/ES6/promise.html#promise的应用场景和不足之处" class="sidebar-link reco-side-promise的应用场景和不足之处" data-v-cb1513f6>Promise的应用场景和不足之处</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><!----><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="right:68px;bottom:190px;display:none;" data-v-5775ee02>
+      欢迎来到小七的博客
+    </div> <div class="operation" style="right:90px;bottom:40px;display:;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5775ee02></i></div> <canvas id="banniang" width="200" height="270" class="live2d" style="right:90px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div><!----><canvas id="vuepress-canvas-cursor"></canvas><!----><div class="RibbonAnimation"></div><div></div><div class="reco-bgm-panel" data-v-b1d3339e><audio id="bgm" src="http://music.163.com/song/media/outer/url?id=167876.mp3" data-v-b1d3339e></audio> <div class="reco-float-box" style="bottom:200px;z-index:999999;display:none;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><img data-v-b1d3339e></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="reco-bgm-cover" style="background-image:url(undefined);" data-v-b1d3339e><div class="mini-operation" style="display:none;" data-v-b1d3339e><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-b1d3339e></i></div> <div class="falut-message" style="display:none;" data-v-b1d3339e>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-music music" data-v-b1d3339e></i>有何不可</div> <div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-artist" data-v-b1d3339e></i>许嵩</div> <div class="reco-bgm-progress" data-v-b1d3339e><div class="progress-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div> <div class="reco-bgm-operation" data-v-b1d3339e><i class="reco-bgm reco-bgm-last last" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play play" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-next next" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-b1d3339e></i> <div class="volume-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div></div> <div class="reco-bgm-left-box" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><i class="reco-bgm reco-bgm-left" data-v-b1d3339e></i></div></div></div></div></div>
+    <script src="/my-blog/assets/js/app.bfa76740.js" defer></script><script src="/my-blog/assets/js/3.fc939f52.js" defer></script><script src="/my-blog/assets/js/1.ea3137ea.js" defer></script><script src="/my-blog/assets/js/19.3a881807.js" defer></script>
+  </body>
+</html>

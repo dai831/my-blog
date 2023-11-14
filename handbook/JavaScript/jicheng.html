@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JS语言的一座小山坡——‘this’ | 代小明的博客</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/my-blog/headPortrait.jpg">
+    <meta name="description" content="突破">
+    
+    <link rel="preload" href="/my-blog/assets/css/0.styles.9e23ccf1.css" as="style"><link rel="preload" href="/my-blog/assets/js/app.bfa76740.js" as="script"><link rel="preload" href="/my-blog/assets/js/3.fc939f52.js" as="script"><link rel="preload" href="/my-blog/assets/js/1.ea3137ea.js" as="script"><link rel="preload" href="/my-blog/assets/js/21.e7be6ed6.js" as="script"><link rel="prefetch" href="/my-blog/assets/js/10.ebb43259.js"><link rel="prefetch" href="/my-blog/assets/js/11.53ac1d4e.js"><link rel="prefetch" href="/my-blog/assets/js/12.e1ebdfdf.js"><link rel="prefetch" href="/my-blog/assets/js/13.132413ef.js"><link rel="prefetch" href="/my-blog/assets/js/14.a4b9e4a2.js"><link rel="prefetch" href="/my-blog/assets/js/15.2000bcd8.js"><link rel="prefetch" href="/my-blog/assets/js/16.af82b6b7.js"><link rel="prefetch" href="/my-blog/assets/js/17.ec4c5c8b.js"><link rel="prefetch" href="/my-blog/assets/js/18.52e21900.js"><link rel="prefetch" href="/my-blog/assets/js/19.3a881807.js"><link rel="prefetch" href="/my-blog/assets/js/20.96b1c531.js"><link rel="prefetch" href="/my-blog/assets/js/22.8a77bc30.js"><link rel="prefetch" href="/my-blog/assets/js/23.3871ea4a.js"><link rel="prefetch" href="/my-blog/assets/js/24.2d68eae0.js"><link rel="prefetch" href="/my-blog/assets/js/25.c7882494.js"><link rel="prefetch" href="/my-blog/assets/js/26.b7a7dd68.js"><link rel="prefetch" href="/my-blog/assets/js/27.bbdf9ce0.js"><link rel="prefetch" href="/my-blog/assets/js/28.3b55530d.js"><link rel="prefetch" href="/my-blog/assets/js/29.0494b6aa.js"><link rel="prefetch" href="/my-blog/assets/js/30.0f59cd37.js"><link rel="prefetch" href="/my-blog/assets/js/31.af29eea5.js"><link rel="prefetch" href="/my-blog/assets/js/32.f90c5c9d.js"><link rel="prefetch" href="/my-blog/assets/js/33.6c109e59.js"><link rel="prefetch" href="/my-blog/assets/js/34.b330bf73.js"><link rel="prefetch" href="/my-blog/assets/js/4.c2ad9568.js"><link rel="prefetch" href="/my-blog/assets/js/5.c663e483.js"><link rel="prefetch" href="/my-blog/assets/js/6.1f9fc4cd.js"><link rel="prefetch" href="/my-blog/assets/js/7.5c10bbaa.js"><link rel="prefetch" href="/my-blog/assets/js/8.d93c723c.js"><link rel="prefetch" href="/my-blog/assets/js/9.2527f323.js">
+    <link rel="stylesheet" href="/my-blog/assets/css/0.styles.9e23ccf1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>代小明的博客</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>突破</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/my-blog/" class="home-link router-link-active"><img src="/my-blog/headPortrait.jpg" alt="代小明的博客" class="logo"> <span class="site-name">代小明的博客</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><img src="headPortrait.jpg" alt="author-avatar" class="personal-img" data-v-39576ba9> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>24</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>15</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9><li class="social-item" data-v-39576ba9><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-github" style="color:#67cc86;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-juejin" style="color:#e15b64;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-coding" style="color:#e15b64;" data-v-39576ba9></i></li></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>JS语言的一座小山坡——‘this’</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">JS语言的一座小山坡——‘this’</h1> <div data-v-f875f3fc><i class="iconfont reco-account" data-v-f875f3fc><span data-v-f875f3fc>潘小七</span></i> <i class="iconfont reco-date" data-v-f875f3fc><span data-v-f875f3fc>2022/7/10</span></i> <i class="iconfont reco-eye" data-v-f875f3fc><span id="/my-blog/handbook/JavaScript/jicheng.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-f875f3fc><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="tags iconfont reco-tag" data-v-f875f3fc><span class="tag-item" data-v-f875f3fc>继承</span></i></div></div> <div class="theme-reco-content content__default"><h1 id="_1-前言"><a href="#_1-前言" class="header-anchor">#</a> 1. 前言</h1> <p>首先我们要知道<strong>继承是一种代码重用的形式</strong>，<strong>JavaScript又是一门基于原型的语言</strong>，这就意味着对象直接从其他对象继承。为了显著的减少软件开发的成本，提高代码的重用性，JavaScript的继承方式也是我们要学会的知识。那下面我就来介绍JavaScript 6种常用的继承方式。</p> <h2 id="_2-原型链继承"><a href="#_2-原型链继承" class="header-anchor">#</a> 2. 原型链继承</h2> <p>原型链继承就是让一个构造函数的原型是继承于另一个构造函数的实例，这样这个构造函数new出来的实例对象就会有另一个构造函数的属性。</p> <div class="language- extra-class"><pre class="language-text"><code>SuperType.prototype.getSuperValue = function() {
+    return this.property
+  }
+  function SuperType(t) {
+    this.property = t
+    this.like = {
+      sport: 'running',
+      book: 'js'
+    }
+    this.age = 18
+  }
+  Type.prototype = new SuperType()
+  function Type(t) {
+    this.typeproperty = t
+  }
+  var instance1 = new Type(false)
+  instance1.age = 20
+
+  console.log(instance1);
+</code></pre></div><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/020c6f50ce674beb922da110445320e7~tplv-k3u1fbpfcp-watermark.image?" alt="图片.png"></p> <p>如图所示，我们有一个<code>SuperType</code>构造函数，然后又创建了<code>Type</code>构造函数，同时让<code>Type</code>的原型赋值为<code>SuperType</code> new出来的的实例对象，这样我们用<code>Type</code>new出来的实例对象原型上就可访问到<code>SuperType</code>的属性。这也就是原型链继承。</p> <ul><li>优点：写法简单，容易理解</li> <li>缺点：</li> <li>1.会在子类实例上共享父类所有的引用类型实例属性</li> <li>2.不能给父类构造函数传参</li></ul> <h2 id="_3-经典继承-伪造对象"><a href="#_3-经典继承-伪造对象" class="header-anchor">#</a> 3. 经典继承(伪造对象）</h2> <p>经典继承就是在子类的构造函数内部调用父类构造函数，再使用<code>call()</code>方法将父类的构造函数绑定到子类上。</p> <div class="language- extra-class"><pre class="language-text"><code>SuperType.prototype.val = 123
+function SuperType() {
+  this.colors = ['red', 'blue', 'green']
+}
+function Type(t) {
+  SuperType.call(this, t)
+}
+var instance1 = new Type()
+instance1.colors.push('pink')
+console.log(instance1);
+var instance2 = new Type()
+console.log(instance2);
+</code></pre></div><p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fa83dc6b63f2487eb66a25925a9a1c01~tplv-k3u1fbpfcp-watermark.image?" alt="图片.png"></p> <p>这样我们就是在子类构造函数<code>Type</code>继承到父类<code>SuperType</code>的<code>color</code>属性。</p> <ul><li>优点
+-解决了原型链不能传参的问题</li> <li>缺点</li> <li>1.方法都在父构造函数中定义，无法实现函数复用</li> <li>2.子类继承不到父类原型上的属性</li></ul> <h2 id="_4-组合继承-伪经典继承"><a href="#_4-组合继承-伪经典继承" class="header-anchor">#</a> 4. 组合继承（伪经典继承）</h2> <p>组合继承就是将<strong>原型链继承和经典继承组合结合起来</strong>，使用原型链实现原型属性的继承，使用构造函数来实现对实例对象的继承。同时我们还可以实现函数的复用。</p> <div class="language- extra-class"><pre class="language-text"><code>SuperType.prototype.sayName = function() {
+    console.log(this.name);
+  }
+  function SuperType(name) {
+    this.name = name
+    this.colors = ['red', 'blue', 'green']
+  }
+  function Type(age, name) {
+    this.age = age
+    SuperType.call(this, name)
+  }
+  Type.prototype = new SuperType()
+  Type.prototype.constructor = Type
+  Type.prototype.sayAge = function() {
+    console.log(this.age);
+  }
+  var instance1 = new Type(18, 'zhangshan')
+  instance1.sayName()
+  instance1.sayAge()
+  console.log(instance1);
+</code></pre></div><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/76afb1edb42d4fb98d5bb4d83207ca57~tplv-k3u1fbpfcp-watermark.image?" alt="图片.png"></p> <p>我们通过了原型链继承拿到了父类的原型上的属性，又通过经典继承拿到了父类实例对象的属性。</p> <ul><li>优点：</li> <li>解决了原型链继承和经典继承的缺陷。</li> <li>缺点：重复调用了两次父类的构造函数。一次是在创建子类原型时，另一次在子类构造函数内部</li></ul> <h2 id="_5-原型式继承"><a href="#_5-原型式继承" class="header-anchor">#</a> 5. 原型式继承</h2> <p>原型式继承是借用一个函数传入一个对象作为参数，再在其内部创建一个临时的构造函数，然后将<strong>参数作为这个构造函数的原型</strong>，最后返回出这个构造函数的实例对象。</p> <div class="language- extra-class"><pre class="language-text"><code>function object(o) {
+    function F() {}
+    F.prototype = o
+    return new F()
+  }
+  var person = {
+    name: '张三',
+    age: 18,
+    like: {
+      sport: 'running'
+    }
+  }
+  var obj = object(person)
+  obj.like.sport = 'singing'
+  console.log(obj);
+</code></pre></div><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7a6b4c149595429eaa79cc1bf7b90364~tplv-k3u1fbpfcp-watermark.image?" alt="图片.png"></p> <p>这样，我们<code>obj</code>对象就继承到了<code>person</code>身上的属性。</p> <ul><li>优点：</li> <li>不需要单独创建构造函数</li> <li>缺点：</li> <li>属性中包含的引用值始终会在相关对象间共享，同时子类实例不能向父类传参</li></ul> <h2 id="_6-寄生式继承"><a href="#_6-寄生式继承" class="header-anchor">#</a> 6. 寄生式继承</h2> <p>寄生式继承是<strong>创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再返回对象</strong>，优缺点和原型式继承相同。</p> <div class="language- extra-class"><pre class="language-text"><code>function createPerson(original) {
+    var clone = Object.create(original)
+    clone.say = function() { // 增强这个对象
+      console.log('hello');
+    }
+    return clone
+  }
+
+  let obj = createPerson({'name':'zhangsan'})
+  obj.say()
+  console.log(obj);
+</code></pre></div><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d25a320b284f429582bf59d20647732b~tplv-k3u1fbpfcp-watermark.image?" alt="图片.png"></p> <h2 id="_7-寄生组合式继承"><a href="#_7-寄生组合式继承" class="header-anchor">#</a> 7. 寄生组合式继承</h2> <p>寄生组合式继承是通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。本质上就是使用寄生式继承来继承父类的原型，然后再将结果指定给子类型的原型</p> <div class="language- extra-class"><pre class="language-text"><code>SuperType.prototype.sayName = function() {
+    console.log(this.name);
+  }
+  SuperType.prototype.like = {
+    a: 1,
+    b: 2
+  }
+  function SuperType(name) {
+    this.name = name
+    this.colors = ['red', 'blue', 'green']
+  }
+  function Type(name, age) {
+    this.age = age
+    SuperType.call(this, name)
+  }
+  var anotherPrototype = Object.assign(Type.prototype, SuperType.prototype)
+  Type.prototype = anotherPrototype // new SuperType()
+  var instance1 = new Type('Tom', 12)
+  // instance1.colors.push('pink')
+  instance1.like.a = 11
+  instance1.sayName()
+  console.log(instance1);
+</code></pre></div><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a087f2f8202d44b88b9315c08ca25b48~tplv-k3u1fbpfcp-watermark.image?" alt="图片.png"></p> <ul><li>优点：</li> <li>只调用了一次父类构造函数，并且避免了子类原型上创建多余的属性。还可以保持原型链不变。（<strong>继承最优解</strong>）</li> <li>缺点：</li> <li>代码复杂</li></ul> <h1 id="_8-结语"><a href="#_8-结语" class="header-anchor">#</a> 8. 结语</h1> <p>除了这些继承方式，我们还可以用<strong>ES6中的class类</strong>实现继承。学习阶段，欢迎指教，点个赞呗。</p></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2023/2/25 10:08:35</span></div></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/jicheng.html#_2-原型链继承" class="sidebar-link reco-side-_2-原型链继承" data-v-cb1513f6>2. 原型链继承</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/jicheng.html#_3-经典继承-伪造对象" class="sidebar-link reco-side-_3-经典继承-伪造对象" data-v-cb1513f6>3. 经典继承(伪造对象）</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/jicheng.html#_4-组合继承-伪经典继承" class="sidebar-link reco-side-_4-组合继承-伪经典继承" data-v-cb1513f6>4. 组合继承（伪经典继承）</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/jicheng.html#_5-原型式继承" class="sidebar-link reco-side-_5-原型式继承" data-v-cb1513f6>5. 原型式继承</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/jicheng.html#_6-寄生式继承" class="sidebar-link reco-side-_6-寄生式继承" data-v-cb1513f6>6. 寄生式继承</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/jicheng.html#_7-寄生组合式继承" class="sidebar-link reco-side-_7-寄生组合式继承" data-v-cb1513f6>7. 寄生组合式继承</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><!----><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="right:68px;bottom:190px;display:none;" data-v-5775ee02>
+      欢迎来到小七的博客
+    </div> <div class="operation" style="right:90px;bottom:40px;display:;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5775ee02></i></div> <canvas id="banniang" width="200" height="270" class="live2d" style="right:90px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div><!----><canvas id="vuepress-canvas-cursor"></canvas><!----><div class="RibbonAnimation"></div><div></div><div class="reco-bgm-panel" data-v-b1d3339e><audio id="bgm" src="http://music.163.com/song/media/outer/url?id=167876.mp3" data-v-b1d3339e></audio> <div class="reco-float-box" style="bottom:200px;z-index:999999;display:none;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><img data-v-b1d3339e></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="reco-bgm-cover" style="background-image:url(undefined);" data-v-b1d3339e><div class="mini-operation" style="display:none;" data-v-b1d3339e><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-b1d3339e></i></div> <div class="falut-message" style="display:none;" data-v-b1d3339e>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-music music" data-v-b1d3339e></i>有何不可</div> <div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-artist" data-v-b1d3339e></i>许嵩</div> <div class="reco-bgm-progress" data-v-b1d3339e><div class="progress-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div> <div class="reco-bgm-operation" data-v-b1d3339e><i class="reco-bgm reco-bgm-last last" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play play" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-next next" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-b1d3339e></i> <div class="volume-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div></div> <div class="reco-bgm-left-box" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><i class="reco-bgm reco-bgm-left" data-v-b1d3339e></i></div></div></div></div></div>
+    <script src="/my-blog/assets/js/app.bfa76740.js" defer></script><script src="/my-blog/assets/js/3.fc939f52.js" defer></script><script src="/my-blog/assets/js/1.ea3137ea.js" defer></script><script src="/my-blog/assets/js/21.e7be6ed6.js" defer></script>
+  </body>
+</html>

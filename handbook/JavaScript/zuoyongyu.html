@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>小白必看——作用域与作用域链 | 代小明的博客</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/my-blog/headPortrait.jpg">
+    <meta name="description" content="突破">
+    
+    <link rel="preload" href="/my-blog/assets/css/0.styles.9e23ccf1.css" as="style"><link rel="preload" href="/my-blog/assets/js/app.bfa76740.js" as="script"><link rel="preload" href="/my-blog/assets/js/3.fc939f52.js" as="script"><link rel="preload" href="/my-blog/assets/js/1.ea3137ea.js" as="script"><link rel="preload" href="/my-blog/assets/js/27.bbdf9ce0.js" as="script"><link rel="prefetch" href="/my-blog/assets/js/10.ebb43259.js"><link rel="prefetch" href="/my-blog/assets/js/11.53ac1d4e.js"><link rel="prefetch" href="/my-blog/assets/js/12.e1ebdfdf.js"><link rel="prefetch" href="/my-blog/assets/js/13.132413ef.js"><link rel="prefetch" href="/my-blog/assets/js/14.a4b9e4a2.js"><link rel="prefetch" href="/my-blog/assets/js/15.2000bcd8.js"><link rel="prefetch" href="/my-blog/assets/js/16.af82b6b7.js"><link rel="prefetch" href="/my-blog/assets/js/17.ec4c5c8b.js"><link rel="prefetch" href="/my-blog/assets/js/18.52e21900.js"><link rel="prefetch" href="/my-blog/assets/js/19.3a881807.js"><link rel="prefetch" href="/my-blog/assets/js/20.96b1c531.js"><link rel="prefetch" href="/my-blog/assets/js/21.e7be6ed6.js"><link rel="prefetch" href="/my-blog/assets/js/22.8a77bc30.js"><link rel="prefetch" href="/my-blog/assets/js/23.3871ea4a.js"><link rel="prefetch" href="/my-blog/assets/js/24.2d68eae0.js"><link rel="prefetch" href="/my-blog/assets/js/25.c7882494.js"><link rel="prefetch" href="/my-blog/assets/js/26.b7a7dd68.js"><link rel="prefetch" href="/my-blog/assets/js/28.3b55530d.js"><link rel="prefetch" href="/my-blog/assets/js/29.0494b6aa.js"><link rel="prefetch" href="/my-blog/assets/js/30.0f59cd37.js"><link rel="prefetch" href="/my-blog/assets/js/31.af29eea5.js"><link rel="prefetch" href="/my-blog/assets/js/32.f90c5c9d.js"><link rel="prefetch" href="/my-blog/assets/js/33.6c109e59.js"><link rel="prefetch" href="/my-blog/assets/js/34.b330bf73.js"><link rel="prefetch" href="/my-blog/assets/js/4.c2ad9568.js"><link rel="prefetch" href="/my-blog/assets/js/5.c663e483.js"><link rel="prefetch" href="/my-blog/assets/js/6.1f9fc4cd.js"><link rel="prefetch" href="/my-blog/assets/js/7.5c10bbaa.js"><link rel="prefetch" href="/my-blog/assets/js/8.d93c723c.js"><link rel="prefetch" href="/my-blog/assets/js/9.2527f323.js">
+    <link rel="stylesheet" href="/my-blog/assets/css/0.styles.9e23ccf1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>代小明的博客</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>突破</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/my-blog/" class="home-link router-link-active"><img src="/my-blog/headPortrait.jpg" alt="代小明的博客" class="logo"> <span class="site-name">代小明的博客</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><img src="headPortrait.jpg" alt="author-avatar" class="personal-img" data-v-39576ba9> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>24</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>15</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9><li class="social-item" data-v-39576ba9><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-github" style="color:#67cc86;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-juejin" style="color:#e15b64;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-coding" style="color:#e15b64;" data-v-39576ba9></i></li></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>小白必看——作用域与作用域链</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">小白必看——作用域与作用域链</h1> <div data-v-f875f3fc><i class="iconfont reco-account" data-v-f875f3fc><span data-v-f875f3fc>潘小七</span></i> <i class="iconfont reco-date" data-v-f875f3fc><span data-v-f875f3fc>2022/7/6</span></i> <i class="iconfont reco-eye" data-v-f875f3fc><span id="/my-blog/handbook/JavaScript/zuoyongyu.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-f875f3fc><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="tags iconfont reco-tag" data-v-f875f3fc><span class="tag-item" data-v-f875f3fc>八股文</span></i></div></div> <div class="theme-reco-content content__default"><hr> <h2 id="前言"><a href="#前言" class="header-anchor">#</a> 前言</h2> <blockquote><p>作为JavaScript初学者，我们首先要了解的一个概念就是作用域。诺没有作用域这个概念，程序虽然也能执行一些简单的任务，但是程序会受到高度限制，不能实现更高级的编程。</p></blockquote> <hr> <h2 id="作用域的概念"><a href="#作用域的概念" class="header-anchor">#</a> 作用域的概念</h2> <blockquote><p>那作用域是什么呢？用丐版语言来描述的话，就是能够储存变量当中的值，并且能在之后对这个值进行访问和修改。程序代码中所用到的名字并不总是有效/可用的，而限定这个名字的可用性的代码范围就是这个名字的作用域。</p></blockquote> <hr> <h2 id="作用域的三大类型"><a href="#作用域的三大类型" class="header-anchor">#</a> 作用域的三大类型</h2> <blockquote><ol><li>全局作用域</li></ol> <ul><li>指代定义在全局的变量形成的作用域</li></ul> <ol start="2"><li>函数局部作用域</li></ol> <ul><li>指代定义在函数体内的变量形成的作用域</li></ul> <ol start="3"><li>代码块级作用域</li></ol> <ul><li>指代用let,const定义的变量</li></ul></blockquote> <hr> <h2 id="词法作用域"><a href="#词法作用域" class="header-anchor">#</a> 词法作用域</h2> <blockquote><p>代码在执行之前需要被编译，编译的过程：</p> <ol><li>词法化 (创建词法作用域)</li></ol> <ul><li>父级作用域是不能取子集作用域的字符的，而子集作用域是可以调用父级作用域的字符</li> <li>执行阶段查找作用域是由内而外 (找到第一个之后就停止查找 --- 遮蔽效应)</li> <li>全局变量会变成window对象上的属性</li></ul></blockquote> <blockquote><ol start="2"><li>欺骗词法作用域(欺骗词法)</li></ol> <ul><li>eval() 让原本不属于这里的代码，好像天生就写在了这里一样</li></ul></blockquote> <div class="language- extra-class"><pre class="language-text"><code>function foo(str,a){ 
+    eval(str) --'var b = 3'就像原本就写在这里 
+    console.log(a,b);
+    } 
+    var b = 2 
+    foo('var b = 3', 1)
+    输出结果( 1 , 3 )
+</code></pre></div><blockquote><p>当给foo函数加入一个eval()时，eval就会将传进来的形参str转化成原本定义在函数的变量，用来欺骗函数，使函数用这个变量去执行。</p></blockquote> <blockquote><ul><li>with可以修改对象中属性的值</li> <li>但是要注意的一点就是，当使用with修改一个对象中不存在的属性时，那么这个属性会被泄漏到全局</li></ul></blockquote> <div class="language- extra-class"><pre class="language-text"><code>var obj = { 
+    a: 1
+    b: 2
+    c: 3
+}
+
+with(obj) {
+    a = 2 
+    b = 3
+    c = 4
+}
+</code></pre></div><hr> <h2 id="作用域链"><a href="#作用域链" class="header-anchor">#</a> 作用域链</h2> <blockquote><p>首先先介绍三个概念</p> <ol><li>执行期上下文：</li></ol></blockquote> <ul><li>当函数执行的时候，会创建一个成为执行其上下文的内部对象（AO对象）。</li> <li>一个执行期上下文定义了一个函数执行时的环境，函数每次执行时对应的执行上下文都是独一无二的，</li> <li>所以多次调用一个函数会导致创建多个执行期上下文，当函数执行完毕，它所产生的执行期上下文会背销毁。</li></ul> <blockquote><ol start="2"><li>查找变量
+从作用域链的顶端依次往下查找。</li> <li>[[scope]]
+[[scope]是函数的作用域，是不可访问的，其中存储了运行期上下文的集合。</li></ol></blockquote> <hr> <h2 id="作用域链概念"><a href="#作用域链概念" class="header-anchor">#</a> 作用域链概念</h2> <blockquote><p>作用域链指代的就是在[[scope]]中所存储的执行期上下文对象的集合，这个集合呈链式链接，我们把这种链式链接叫做作用域链。用大白话来讲，就是在函数执行时，将产生的作用域用链表的方式连接，再按照下标顺序依次执行。</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>function a(){
+
+    function b(){
+
+        var b = 22
+    }
+    var a = 111
+
+    b()
+    console.log(a);
+}
+var glob = 100
+a()
+</code></pre></div><blockquote><p>来看这段代码，首先定义了函数a，生成了a[[scope]] --&gt;0:GO{},紧接着执行函数a，生成了a[[scope]] --&gt;0: AO{} 1:GO{},但在函数a执行的过程中遇到了函数b，又定义了b[[scope]] --&gt;0: bAO{} 1:aAO{} 2:aGO{}，形成了成链表形式排列的三个作用域，之后就会依照链表的顺序以此执行。</p></blockquote> <hr> <h2 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h2> <blockquote><p>在这块知识点中，我们要先了解作用域的基本概念、类型、以及产生的原理，同时掌握欺骗词法作用域的用法。再去深入的理解作用域链的概念和原理即可</p></blockquote></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2023/2/25 10:08:35</span></div></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/zuoyongyu.html#前言" class="sidebar-link reco-side-前言" data-v-cb1513f6>前言</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/zuoyongyu.html#作用域的概念" class="sidebar-link reco-side-作用域的概念" data-v-cb1513f6>作用域的概念</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/zuoyongyu.html#作用域的三大类型" class="sidebar-link reco-side-作用域的三大类型" data-v-cb1513f6>作用域的三大类型</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/zuoyongyu.html#词法作用域" class="sidebar-link reco-side-词法作用域" data-v-cb1513f6>词法作用域</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/zuoyongyu.html#作用域链" class="sidebar-link reco-side-作用域链" data-v-cb1513f6>作用域链</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/zuoyongyu.html#作用域链概念" class="sidebar-link reco-side-作用域链概念" data-v-cb1513f6>作用域链概念</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/JavaScript/zuoyongyu.html#总结" class="sidebar-link reco-side-总结" data-v-cb1513f6>总结</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><!----><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="right:68px;bottom:190px;display:none;" data-v-5775ee02>
+      欢迎来到小七的博客
+    </div> <div class="operation" style="right:90px;bottom:40px;display:;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5775ee02></i></div> <canvas id="banniang" width="200" height="270" class="live2d" style="right:90px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div><!----><canvas id="vuepress-canvas-cursor"></canvas><!----><div class="RibbonAnimation"></div><div></div><div class="reco-bgm-panel" data-v-b1d3339e><audio id="bgm" src="http://music.163.com/song/media/outer/url?id=167876.mp3" data-v-b1d3339e></audio> <div class="reco-float-box" style="bottom:200px;z-index:999999;display:none;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><img data-v-b1d3339e></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="reco-bgm-cover" style="background-image:url(undefined);" data-v-b1d3339e><div class="mini-operation" style="display:none;" data-v-b1d3339e><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-b1d3339e></i></div> <div class="falut-message" style="display:none;" data-v-b1d3339e>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-music music" data-v-b1d3339e></i>有何不可</div> <div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-artist" data-v-b1d3339e></i>许嵩</div> <div class="reco-bgm-progress" data-v-b1d3339e><div class="progress-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div> <div class="reco-bgm-operation" data-v-b1d3339e><i class="reco-bgm reco-bgm-last last" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play play" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-next next" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-b1d3339e></i> <div class="volume-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div></div> <div class="reco-bgm-left-box" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><i class="reco-bgm reco-bgm-left" data-v-b1d3339e></i></div></div></div></div></div>
+    <script src="/my-blog/assets/js/app.bfa76740.js" defer></script><script src="/my-blog/assets/js/3.fc939f52.js" defer></script><script src="/my-blog/assets/js/1.ea3137ea.js" defer></script><script src="/my-blog/assets/js/27.bbdf9ce0.js" defer></script>
+  </body>
+</html>

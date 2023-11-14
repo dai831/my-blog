@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>你知道Vue中router实现原理吗? | 代小明的博客</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/my-blog/headPortrait.jpg">
+    <meta name="description" content="突破">
+    
+    <link rel="preload" href="/my-blog/assets/css/0.styles.9e23ccf1.css" as="style"><link rel="preload" href="/my-blog/assets/js/app.bfa76740.js" as="script"><link rel="preload" href="/my-blog/assets/js/3.fc939f52.js" as="script"><link rel="preload" href="/my-blog/assets/js/1.ea3137ea.js" as="script"><link rel="preload" href="/my-blog/assets/js/30.0f59cd37.js" as="script"><link rel="prefetch" href="/my-blog/assets/js/10.ebb43259.js"><link rel="prefetch" href="/my-blog/assets/js/11.53ac1d4e.js"><link rel="prefetch" href="/my-blog/assets/js/12.e1ebdfdf.js"><link rel="prefetch" href="/my-blog/assets/js/13.132413ef.js"><link rel="prefetch" href="/my-blog/assets/js/14.a4b9e4a2.js"><link rel="prefetch" href="/my-blog/assets/js/15.2000bcd8.js"><link rel="prefetch" href="/my-blog/assets/js/16.af82b6b7.js"><link rel="prefetch" href="/my-blog/assets/js/17.ec4c5c8b.js"><link rel="prefetch" href="/my-blog/assets/js/18.52e21900.js"><link rel="prefetch" href="/my-blog/assets/js/19.3a881807.js"><link rel="prefetch" href="/my-blog/assets/js/20.96b1c531.js"><link rel="prefetch" href="/my-blog/assets/js/21.e7be6ed6.js"><link rel="prefetch" href="/my-blog/assets/js/22.8a77bc30.js"><link rel="prefetch" href="/my-blog/assets/js/23.3871ea4a.js"><link rel="prefetch" href="/my-blog/assets/js/24.2d68eae0.js"><link rel="prefetch" href="/my-blog/assets/js/25.c7882494.js"><link rel="prefetch" href="/my-blog/assets/js/26.b7a7dd68.js"><link rel="prefetch" href="/my-blog/assets/js/27.bbdf9ce0.js"><link rel="prefetch" href="/my-blog/assets/js/28.3b55530d.js"><link rel="prefetch" href="/my-blog/assets/js/29.0494b6aa.js"><link rel="prefetch" href="/my-blog/assets/js/31.af29eea5.js"><link rel="prefetch" href="/my-blog/assets/js/32.f90c5c9d.js"><link rel="prefetch" href="/my-blog/assets/js/33.6c109e59.js"><link rel="prefetch" href="/my-blog/assets/js/34.b330bf73.js"><link rel="prefetch" href="/my-blog/assets/js/4.c2ad9568.js"><link rel="prefetch" href="/my-blog/assets/js/5.c663e483.js"><link rel="prefetch" href="/my-blog/assets/js/6.1f9fc4cd.js"><link rel="prefetch" href="/my-blog/assets/js/7.5c10bbaa.js"><link rel="prefetch" href="/my-blog/assets/js/8.d93c723c.js"><link rel="prefetch" href="/my-blog/assets/js/9.2527f323.js">
+    <link rel="stylesheet" href="/my-blog/assets/css/0.styles.9e23ccf1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>代小明的博客</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>突破</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/my-blog/" class="home-link router-link-active"><img src="/my-blog/headPortrait.jpg" alt="代小明的博客" class="logo"> <span class="site-name">代小明的博客</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><img src="headPortrait.jpg" alt="author-avatar" class="personal-img" data-v-39576ba9> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>24</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>15</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9><li class="social-item" data-v-39576ba9><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-github" style="color:#67cc86;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-juejin" style="color:#e15b64;" data-v-39576ba9></i></li><li class="social-item" data-v-39576ba9><i class="iconfont reco-coding" style="color:#e15b64;" data-v-39576ba9></i></li></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/my-blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      目录
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/categories/Byte/" class="nav-link"><i class="undefined"></i>
+  Byte
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/ES6/" class="nav-link"><i class="undefined"></i>
+  ES6
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/JavaScript/" class="nav-link"><i class="undefined"></i>
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Node/" class="nav-link"><i class="undefined"></i>
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/Vue/" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/my-blog/categories/andition/" class="nav-link"><i class="undefined"></i>
+  andition
+</a></li></ul></div></div><div class="nav-item"><a href="/my-blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/my-blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      简历
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/my-blog/views/Resume/resume.html" class="nav-link"><i class="undefined"></i>
+  我的简历
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      友情链接
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitee.com/bestcuicheng" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/CuiChengweb" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/4262162784847127/posts" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  稀土掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://leetcode.cn/u/silly-heyrovskys1p/" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-coding"></i>
+  Leetcode
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>你知道Vue中router实现原理吗?</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2023
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">你知道Vue中router实现原理吗?</h1> <div data-v-f875f3fc><i class="iconfont reco-account" data-v-f875f3fc><span data-v-f875f3fc>潘小七</span></i> <i class="iconfont reco-date" data-v-f875f3fc><span data-v-f875f3fc>2022/10/10</span></i> <i class="iconfont reco-eye" data-v-f875f3fc><span id="/my-blog/handbook/Vue/router.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-f875f3fc><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="tags iconfont reco-tag" data-v-f875f3fc><span class="tag-item" data-v-f875f3fc>router</span></i></div></div> <div class="theme-reco-content content__default"><h1 id="前言"><a href="#前言" class="header-anchor">#</a> 前言</h1> <p>在我们了解router的实现原理之前，我们先来聊聊vue的路由跳转到底是怎样的吧！</p> <p>首先，我们知道vue创建的项目其实是一个单页应用。在我们对vue项目进行打包以后，我们所有的代码都会被成一份HTML和一份JS，那我们创建的那么多.vue文件是如何实现通信的呢？</p> <p>这时我们今天的主角就登场啦，vue-router就是vue官方定义的路由插件，其作用有如下两点：</p> <ul><li>路由用户设定访问路径的，将路径和组件映射起来。</li> <li>在vue-router的单页面应用中，页面的路径的改变就是组件的切换</li></ul> <h1 id="实现一个router"><a href="#实现一个router" class="header-anchor">#</a> 实现一个router</h1> <h2 id="vue官方版router"><a href="#vue官方版router" class="header-anchor">#</a> vue官方版router</h2> <p>首先，我们先来看看官方版router，官方版router的实现步骤有五步。我们先来分析分析五步都在干什么。</p> <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/911177446e004cddbec29233e85fa500~tplv-k3u1fbpfcp-watermark.image?" alt="2FHSKT%ANM{2P~AGW$C.png"></p> <p>1：第一步我们在我们的router文件夹下的index.js文件中引入了‘vue-router’插件，将其引入到我们的项目中。</p> <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d80ada1ba8354457bfe5a61dc2400974~tplv-k3u1fbpfcp-watermark.image?" alt="X5O.png">
+2：第二步我们就要在我们的Vue实例对象中，use掉我们引入的插件，使我们可以在这个实例对象中可以使用VueRouter。</p> <p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ed957c1ec4a64a36a71956b315a5dce9~tplv-k3u1fbpfcp-watermark.image?" alt="RU.png"></p> <ol start="3"><li>第三步我们在index.js定义了routes数组给用户来定义其要路由跳转的路径和对路径进行重定向，如上图，第一个对象就是对路由进行重定向，第二个对象就是定义路由跳转的路径。</li></ol> <p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b4b583ab090f474ea680dbfc5cba178f~tplv-k3u1fbpfcp-watermark.image?" alt="UNO{(J{I%4%I}_Y32%CQ%QI.png"></p> <p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/afd6b1251bf24f22bd3553de128143d7~tplv-k3u1fbpfcp-watermark.image?" alt="63XVLG9A_U1E%IKYEU8G(~J.png"></p> <p>4.第四步我们就要是new出我们的路由实例对象，选择跳转模式和根路径，同时把我们定义的routes数组给到路由实例对象，再将其抛出，之后我们就可以在main.js中引入引入我们抛出的路由对象了。</p> <p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7744cabdc9f6499aa2bd079a54e7ddd5~tplv-k3u1fbpfcp-watermark.image?" alt="VWBH0N.png">
+5.第五步是最重要的一步，我们要调用router对象中内置的router-link和router-view组件，让其可以在页面中显示出来。这样我们就可以肆无忌惮的跳转页面了。</p> <h2 id="自己实现一个vuerouter"><a href="#自己实现一个vuerouter" class="header-anchor">#</a> 自己实现一个VueRouter</h2> <p>在我们看完官方版路由后，我们就该疑惑了，在我们引入的这个vue-router组件中，他是怎样让我们可以如此轻松的实现路由跳转的呢？</p> <p>这时我们就要提出疑惑了，VueRouter这个构造函数中到底创建了什么方法，可以让我们将模式，根路径，跳转路径三个参数传递进去就可以帮我们实现路由跳转的呢？</p> <p>在官方版VueRouter构造函数中，我们可以看出我们需要处理的由三个东西，第一个就是处理路由跳转的模式（mode），第二个就要处理的就是路由跳转的路径（routes），第三个就要处理路由的根路径和跳转组件。</p> <h3 id="vuerouter构造函数的实现"><a href="#vuerouter构造函数的实现" class="header-anchor">#</a> VueRouter构造函数的实现</h3> <p>下面我们来自己创建VueRouter构造函数，同时我们再来分析分析他的实现原理。</p> <div class="language- extra-class"><pre class="language-text"><code>class HistoryRoute { // 保存当前路径状态
+    constructor() {
+        this.current = null // 用来记录当前路由的路径的变量
+    }
+}
+class VueRouter {
+    constructor(options) {
+        this.mode = options.mode || 'hash'  // 用来记录路由模式的边疆
+        this.routes = options.routes  // 跳转路径数组
+        this.routesMap = this.createMap(this.routes) // 路径对象
+        this.history = new HistoryRoute()
+        this.init()
+    }
+    createMap(routes) { // 当前的路由对象
+        return routes.reduce((pre, current) =&gt; {
+            pre[current.path] = current.component  // '/' : Home, '/about' : About
+            return pre
+        },{})
+    }
+    init() {  
+        if(this.mode == 'hash') { // 根据路由跳转的方式，改变路由的实例对象
+            location.hash ? '' : location.hash = '/'
+            window.addEventListener('load', () =&gt; {
+                this.history.current = location.hash.slice(1)
+            })
+            window.addEventListener('hashchange', () =&gt; {
+                this.history.current = location.hash.slice(1)
+            })
+        }else {
+            location.pathname ? '' : location.pathname = '/'
+            window.addEventListener('load', () =&gt; {
+                this.history.current = location.pathname
+            })
+            window.addEventListener('popstate', () =&gt; {
+                this.history.current = location.pathname
+            })
+        }
+    }
+}
+</code></pre></div><h3 id="在vue实例对象中混入vue-router"><a href="#在vue实例对象中混入vue-router" class="header-anchor">#</a> 在Vue实例对象中混入Vue-Router</h3> <div class="language- extra-class"><pre class="language-text"><code>let Vue = null  // vue 的实例对象
+VueRouter.install = function (params) { // 在VueRouter实例对象的原型上挂上install方法
+    Vue = params
+    // console.log(Vue); 
+    Vue.mixin({  //将在其他地方写的api方法混入vue实例对象中
+        beforeCreate() {
+            if(this.$options &amp;&amp; this.$options.router) { // 根组件
+                this._root =this
+                this._router = this.$options.router
+                Vue.util.defineReactive(this, 'xxx', this._router.history)
+            }else{ //子组件
+                this._root = this.$parent  &amp;&amp; this.$parent._root
+            }
+            Object.defineProperty(this, '$router', {
+                get () {
+                    return this._root.router
+                }
+            })
+            Object.defineProperty(this, '$route', {
+                get () {
+                    return this._root.router.history.current
+                }
+            })
+        }
+    })
+    Vue.component('router-link', { // 自带的组件注册  声明全局组件
+        props:{
+            to: String
+        },
+        render(h) {
+            let mode = this._self._root._router.mode
+            let to = mode === 'hash' ? '#'+this.to : this.to
+            return h('a', {attrs:{href:to }}, this.$slots.default)
+        }
+    })
+    Vue.component('router-view', {
+        render(h) {
+            let current = this._self._root._router.history.current // 当前路由地址 '/about'
+            let routeMap = this._self._root._router.routesMap  // 所有路由对象
+            return h(routeMap[current])
+        }
+    })
+}
+export default VueRouter
+</code></pre></div><p>这样我们直接调用我们自己的MyRouter函数，实现路由跳转，下面我们来看看效果：</p> <p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/26b73dd0ecd44183bf538580dca2347d~tplv-k3u1fbpfcp-watermark.image?" alt="QQ录屏20221010223312_1.gif"></p></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2023/2/25 10:08:35</span></div></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/Vue/router.html#vue官方版router" class="sidebar-link reco-side-vue官方版router" data-v-cb1513f6>vue官方版router</a></li><li class="level-2" data-v-cb1513f6><a href="/my-blog/handbook/Vue/router.html#自己实现一个vuerouter" class="sidebar-link reco-side-自己实现一个vuerouter" data-v-cb1513f6>自己实现一个VueRouter</a></li><li class="level-3" data-v-cb1513f6><a href="/my-blog/handbook/Vue/router.html#vuerouter构造函数的实现" class="sidebar-link reco-side-vuerouter构造函数的实现" data-v-cb1513f6>VueRouter构造函数的实现</a></li><li class="level-3" data-v-cb1513f6><a href="/my-blog/handbook/Vue/router.html#在vue实例对象中混入vue-router" class="sidebar-link reco-side-在vue实例对象中混入vue-router" data-v-cb1513f6>在Vue实例对象中混入Vue-Router</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><!----><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="right:68px;bottom:190px;display:none;" data-v-5775ee02>
+      欢迎来到小七的博客
+    </div> <div class="operation" style="right:90px;bottom:40px;display:;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5775ee02></i></div> <canvas id="banniang" width="200" height="270" class="live2d" style="right:90px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div><!----><canvas id="vuepress-canvas-cursor"></canvas><!----><div class="RibbonAnimation"></div><div></div><div class="reco-bgm-panel" data-v-b1d3339e><audio id="bgm" src="http://music.163.com/song/media/outer/url?id=167876.mp3" data-v-b1d3339e></audio> <div class="reco-float-box" style="bottom:200px;z-index:999999;display:none;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><img data-v-b1d3339e></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="reco-bgm-cover" style="background-image:url(undefined);" data-v-b1d3339e><div class="mini-operation" style="display:none;" data-v-b1d3339e><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-b1d3339e></i></div> <div class="falut-message" style="display:none;" data-v-b1d3339e>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-music music" data-v-b1d3339e></i>有何不可</div> <div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-artist" data-v-b1d3339e></i>许嵩</div> <div class="reco-bgm-progress" data-v-b1d3339e><div class="progress-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div> <div class="reco-bgm-operation" data-v-b1d3339e><i class="reco-bgm reco-bgm-last last" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play play" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-next next" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-b1d3339e></i> <div class="volume-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div></div> <div class="reco-bgm-left-box" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><i class="reco-bgm reco-bgm-left" data-v-b1d3339e></i></div></div></div></div></div>
+    <script src="/my-blog/assets/js/app.bfa76740.js" defer></script><script src="/my-blog/assets/js/3.fc939f52.js" defer></script><script src="/my-blog/assets/js/1.ea3137ea.js" defer></script><script src="/my-blog/assets/js/30.0f59cd37.js" defer></script>
+  </body>
+</html>
